@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Scene Scope="Project" version="2">
+    <Scope Scope="Faces Configuration Only"/>
+    <Scope Scope="Project">
+        <Node id="home/cadastro.xhtml" x="150" y="600" zoom="true"/>
+        <Node id="home/cad_avaliacao.xhtml" x="1150" y="150" zoom="true"/>
+        <Node id="home/resultado_nota.xhtml" x="400" y="150" zoom="true"/>
+        <Node id="home/alunos_cad.xhtml" x="900" y="150" zoom="true"/>
+        <Node id="home/cad_diciplina.xhtml" x="650" y="150" zoom="true"/>
+        <Node id="home/index.xhtml" x="150" y="300" zoom="true"/>
+        <Node id="logteste/login.xhtml" x="400" y="450" zoom="true"/>
+        <Node id="home/cad_usuario.xhtml" x="150" y="450" zoom="true"/>
+        <Node id="paginaerro/erro.xhtml" x="650" y="300" zoom="true"/>
+        <Node id="home/prof_turma.xhtml" x="150" y="150" zoom="true"/>
+    </Scope>
+    <Scope Scope="All Faces Configurations"/>
+</Scene>

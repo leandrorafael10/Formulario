@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<b:beans 
+    xmlns:b = "http://www.springframework.org/schema/beans"
+    xmlns:sec = "http://www.springframework.org/schema/security"
+    xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation = "http://www.springframework.org/schema/beans 
+             http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+             http://www.springframework.org/schema/security 
+             http://www.springframework.org/schema/security/spring-security-3.1.xsd ">
+                 
+                 
+    <sec:http auto-config="true" access-denied-page="/paginaerro/erro.jsf">
+        <sec:intercept-url pattern="/home/**" access="ROLE_USUARIO,ROLE_ADMINISTRAÇÃO"/>
+        <sec:intercept-url pattern="/menu/**" access="ROLE_USUARIO,ROLE_ADMINISTRAÇÃO"/>
+        <sec:form-login login-page="/admin/login.jsf"            
+                        always-use-default-target="true"  
+                        default-target-url="/home/index.jsf"
+                        authentication-failure-url="/paginaerro/erro.jsf"/>
+        <sec:logout/>
+        <sec:remember-me/>
+    </sec:http>
+    <sec:authentication-manager> 
+        <sec:authentication-provider>
+            <sec:password-encoder hash="md5"/>
+            <sec:jdbc-user-service data-source-ref="formDS" 
+                                   authorities-by-username-query="SELECT u.LOGIN, p.DESCRICAO FROM USUARIO u, GRUPO p WHERE u.IDGRUPO = p.IDGRUPO and  u.LOGIN =?" 
+                                   users-by-username-query="SELECT u.LOGIN,u.SENHA,u.ATIVO FROM USUARIO u WHERE u.LOGIN=?"/>
+        </sec:authentication-provider>
+    </sec:authentication-manager>
+             
+</b:beans>
+    
+    
+            
+    
+    

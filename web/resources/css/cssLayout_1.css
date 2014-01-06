@@ -1,0 +1,100 @@
+#usuarioLog{
+    right: 0px;
+    top: 0px;
+    float: right;
+    padding: 1px;
+    margin-right: 5%;
+    width: 90%;
+    min-height: 170px;
+
+
+
+}
+#tudo{
+
+    width: 90%;
+    margin: 0 auto;
+    min-width: 860px;
+}
+
+
+#topo{
+    padding-top: 10px;
+    height: 150px;
+    box-shadow: 2px -5px 10px rgba(1, 1, 1, 0.7);
+    -moz-box-shadow: 2px -5px 10px rgba(1, 1, 1, 0.7);
+    -webkit-box-shadow: 2px -5px 10px rgba(1, 1, 1, 0.7);
+    margin-top: 10px;
+    border-radius: 0.5em  ;
+    background-color: #1f2124;
+
+}
+
+
+
+#rodape {
+    clear: both;
+    height: 100px;
+    background-color: #2a8ac4;
+    box-shadow: 2px -5px 10px rgba(1, 1, 1, 0.7);
+    -moz-box-shadow: 2px -5px 10px rgba(1, 1, 1, 0.7);
+    -webkit-box-shadow: 2px -5px 10px rgba(1, 1, 1, 0.7);
+
+    margin-bottom: 10px;
+    text-align: right;
+    position: relative ;
+    bottom: 0;
+
+}
+
+#navegacao {
+
+    width: 100%;
+
+}
+
+
+#principal{
+    width: 100%;
+    float: left;
+    min-height: 600px;
+
+}
+.resp{
+    padding-top: 10px;
+    height: 150px;
+    box-shadow: 2px -5px 10px rgba(1, 1, 1, 0.7);
+    margin-top: 10px;
+    border-radius: 0.5em;
+    background-color: #1F2124;
+    width: 100%;
+    font-size: 220%;
+}
+
+.coluna-fixa{
+    max-width: 125px;
+    min-width: 125px;
+
+}
+.texto-esquerda{
+    text-align: left;
+}
+.vermelho{
+    color: red;
+}
+.azul{
+    color: blue;
+}
+.verde{
+    color: green;
+}
+.amarelo{
+    color: black;
+}
+
+
+
+
+
+
+

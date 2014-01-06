@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+<ui:composition template="/home/index.xhtml">
+    <ui:define name="principal-interna">
+        <h:form id="formLista">
+            <p:panel>
+                    <h2>Lista de alunos cadastrados</h2>
+                    <br/>
+                    <br/>
+                    <p:dataTable emptyMessage="Não há alunos" value="#{usuarioDisciplinaRN.listarPorPerfil(perfilRN.carregar(1))}"
+                                 var="alunos"
+                                 scrollHeight="500"
+                                 scrollable="true"
+                                 >
+                        <p:column headerText="Matricula">
+                            320000#{alunos.idusuario.idpessoa.idpessoa}
+                        </p:column>
+                        <p:column headerText="Nome">
+                            #{alunos.idusuario.idpessoa.nome}
+                        </p:column>
+                        <p:column headerText="Telefone">
+                            <h:outputText value="#{alunos.idusuario.idpessoa.telefone}">
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="Diciplina">
+                            <p:dataList value="#{alunos.idusuario.disciplinaList}" var="disciplina">
+                                #{disciplina.descricao}
+                            </p:dataList>
+                        </p:column>
+                        <p:column headerText="add disciplina">
+                            <p:commandButton value="ADD"  oncomplete="dialogadddisciplina.show()" update=":formaldi">
+                                <f:setPropertyActionListener target="#{usuarioDisciplinaBean.usuarioDisciplina}" value="#{alunos}"/>
+                            </p:commandButton>
+                        </p:column>
+
+
+                    </p:dataTable>
+                </p:panel>
+        </h:form>
+        <h:form id="formaldi">
+            <p:dialog widgetVar="dialogadddisciplina" header="#{usuarioDisciplinaBean.usuarioDisciplina.idusuario.idpessoa.nome}">
+                <p:panel>
+                    <h:panelGrid columns="2" cellpadding="8">
+                    <h:outputText value="Disciplina"/>
+                    <p:selectOneMenu converter="disciplinaConverter" value="#{usuarioDisciplinaBean.usuarioDisciplina.disciplina}">
+                        <f:selectItems value="#{disciplinaRN.listar()}"
+                                       var="disciplina"
+                                       itemLabel="#{disciplina.descricao}"
+                                       itemValue="#{disciplina}"/>
+                    </p:selectOneMenu>
+                    </h:panelGrid>
+                    
+                    <p:commandButton actionListener="#{usuarioDisciplinaBean.salvar(event)}" value="salvar" update=":formLista" oncomplete="dialogadddisciplina.hide()"/>
+                        
+                        
+                </p:panel>
+            </p:dialog>
+        </h:form>
+    </ui:define>
+</ui:composition>
+</html>

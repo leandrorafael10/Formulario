@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+
+        <ui:composition template="/home/index.xhtml">
+            <ui:define name="principal-interna">
+                <f:view>
+                    <h:form id="formCadastroAluno">
+                        <p:growl life="3000"/>
+                        <h2><h:outputText value="Cadastrar aluno"/></h2>
+                        <p:messages/>
+                        <p:panel>
+                            <h1><h:outputText value="Dados pessoais"/></h1>
+                            <h:panelGrid columns="4" cellspacing="8" cellpadding="5">
+                                <h:outputLabel value="Nome:" for="nome" />
+                                <p:inputText id="nome" value="#{alunoBean.aluno.nome}" title="Nome" required="true" requiredMessage="Nome e obrigatorio!"/>
+                                <h:outputLabel value="Rg:" for="rg" />
+                                <p:inputText id="rg" value="#{alunoBean.aluno.rg}" title="Rg" />
+                                <h:outputLabel value="Cpf:" for="cpf" />
+                                <p:inputMask mask="999.999.999-99" id="cpf" value="#{alunoBean.aluno.cpf}" title="Cpf" />
+                                <h:outputLabel value="DtNascimento:" for="dtNascimento" />
+                                <p:calendar id="dtNascimento" value="#{alunoBean.aluno.dtNascimento}" title="DtNascimento" pattern="dd/MM/yyyy" />
+                                <h:outputLabel value="Sexo:" for="sexo" />
+                                <p:selectOneMenu id="sexo" value="#{alunoBean.aluno.sexo}" required="true" requiredMessage="Opção de sexo e obrigatoria!">
+                                    <f:selectItem itemLabel=""/>
+                                    <f:selectItem itemLabel="Masculino" itemValue="M"/>
+                                    <f:selectItem itemLabel="Feminino" itemValue="F"/>
+                                </p:selectOneMenu>
+                                <h:outputLabel value="Email:" for="email" />
+                                <p:inputText id="email" value="#{alunoBean.aluno.email}" title="Email"  maxlength="70"/>
+                                <h:outputLabel value="Telefone fixo:" for="telFixo" />
+                                <p:inputMask mask="(99)9999-9999"  id="telFixo" value="#{alunoBean.aluno.telFixo}" title="TelFixo" />
+                                <h:outputLabel value="Telefone celular:" for="telCel" />
+                                <p:inputMask mask="(99)9999-9999" id="telCel" value="#{alunoBean.aluno.telCel}" title="TelCel" />
+                                <h:outputLabel value="TelCom:" for="telCom" />
+                                <p:inputMask mask="(99)9999-9999" id="telCom" value="#{alunoBean.aluno.telCom}" title="TelCom" />
+                                <h:outputLabel value="Pai:" for="pai" />
+                                <p:inputText id="pai" value="#{alunoBean.aluno.pai}" title="Pai" />
+                                <h:outputLabel value="Mae:" for="mae" />
+                                <p:inputText id="mae" value="#{alunoBean.aluno.mae}" title="Mae" />
+                            </h:panelGrid>
+                        </p:panel>
+
+                        <p:panel>
+                            <h1><h:outputText value="Endereço"/></h1>
+                            <h:panelGrid columns="4" cellspacing="8" cellpadding="5">
+                                <h:outputLabel value="Rua / Av :" for="logradouro" />
+                                <p:inputText id="logradouro" value="#{alunoBean.aluno.idendereco.logradouro}" title="Logradouro" />
+                                <h:outputLabel value="Numero:" for="numero" />
+                                <p:inputText id="numero" value="#{alunoBean.aluno.idendereco.numero}" title="Numero" />
+                                <h:outputLabel value="Complemento:" for="complemento" />
+                                <p:inputText id="complemento" value="#{alunoBean.aluno.idendereco.complemento}" title="Complemento" />
+                                <h:outputLabel value="Bairro:" for="bairro" />
+                                <p:inputText id="bairro" value="#{alunoBean.aluno.idendereco.bairro}" title="Bairro" />
+                                <h:outputLabel value="Cidade:" for="cidade" />
+                                <p:inputText id="cidade" value="#{alunoBean.aluno.idendereco.cidade}" title="Cidade" />
+                                <h:outputLabel value="Estado:" for="estado" />
+                                <p:inputText id="estado" value="#{alunoBean.aluno.idendereco.estado}" title="Estado"  maxlength="2" size="2"/>
+                                <h:outputLabel value="Pais:" for="pais" />
+                                <p:inputText id="pais" value="#{alunoBean.aluno.idendereco.pais}" title="Pais" />
+                                <h:outputLabel value="Cep:" for="cep" />
+                                <p:inputMask mask="99999-999" id="cep" value="#{alunoBean.aluno.idendereco.cep}" title="Cep" />
+                            </h:panelGrid>
+                            <p:separator/>
+                            <p:commandButton value="cadastrar" actionListener="#{alunoBean.salvar(event)}" update=":formCadastroAluno"/>
+                        </p:panel>
+
+                    </h:form>
+                </f:view>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

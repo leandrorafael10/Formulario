@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/home/index.xhtml">
+
+        <ui:define name="principal-interna">
+            <h:form>
+                <p:panel>
+                    <h2>Lista de alunos cadastrados</h2>
+                    <br/>
+                    <br/>
+                    <p:dataTable emptyMessage="Não há alunos" value="#{usuarioRN.listarPorPerfil(perfilRN.carregar(1))}"
+                                 var="alunos"
+                                 scrollHeight="500"
+                                 scrollable="true"
+                                 >
+                        <p:column headerText="Matricula">
+                            320000#{alunos.idpessoa.idpessoa}
+                        </p:column>
+                        <p:column headerText="Nome">
+                            #{alunos.idpessoa.nome}
+                        </p:column>
+                        <p:column headerText="Telefone">
+                            <h:outputText value="#{alunos.idpessoa.telefone}">
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="Email">
+                            #{alunos.idpessoa.email}
+                        </p:column>
+                        <p:column headerText="Diciplina">
+                            <p:dataList value="#{alunos.disciplinaList}" var="disciplina">
+                                #{disciplina.descricao}
+                            </p:dataList>
+
+
+                        </p:column>
+
+
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+        </ui:define>
+
+    </ui:composition>
+
+
+</html>

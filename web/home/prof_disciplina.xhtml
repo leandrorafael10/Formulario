@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/home/index.xhtml">
+
+
+        <ui:define name="principal-interna">
+            <h:form id="formListaProfDisciplinas">
+                <p:panel>
+                    <h2>Lista de disciplinas com professores</h2>
+                    <br/>
+                    <br/>
+                    <p:dataTable emptyMessage="Não há alunos" value="#{disciplinaRN.listar()}"
+                                 var="disciplina"
+                                 scrollHeight="500"
+                                 scrollable="true"
+                                 >
+                        <p:column headerText="Matricula">
+                            #{disciplina.iddisciplina}
+                        </p:column>
+                        <p:column headerText="Nome">
+                            #{disciplina.descricao}
+                        </p:column>
+
+                        <p:column headerText="professor">
+                            <h:outputText value="#{disciplina.idprofessor==null?'':disciplina.idprofessor.idpessoa.nome}" />
+                        </p:column>
+                        <p:column headerText="Alterar Prof.">
+                            <p:commandButton value="alterar"  oncomplete="dialogAltProf.show()" update=":formAltProf" >
+                                <f:setPropertyActionListener target="#{disciplinaBean.disciplina}" value="#{disciplina}" />
+                            </p:commandButton>
+                        </p:column>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+            <h:form id="formAltProf">
+                <p:dialog widgetVar="dialogAltProf">
+                    <p:panel>
+                        <h:panelGrid columns="2" cellpadding="8">
+                        <h:outputText value="#{disciplinaBean.disciplina.descricao}"/>
+                        <p:selectOneMenu converter="usuarioConverter" value="#{disciplinaBean.disciplina.idprofessor}" required="true">
+                            <f:selectItems value="#{usuarioRN.listarPorPerfil(perfilRN.carregar(2))}"
+                                           var="prof"
+                                           itemLabel="#{prof.idpessoa.nome}"
+                                           itemValue="#{prof}"/>
+                        </p:selectOneMenu>
+
+                        <p:commandButton actionListener="#{disciplinaBean.alterar(event)}" value="salvar" update=":formListaProfDisciplinas" oncomplete="dialogAltProf.hide()"/>
+                        
+                        </h:panelGrid>
+                    </p:panel>
+                    
+                </p:dialog>
+            </h:form>
+        </ui:define>
+
+    </ui:composition>
+
+</html>

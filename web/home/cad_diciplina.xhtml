@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+        <ui:composition template="/home/index.xhtml">
+            <ui:define name="principal-interna">
+                <h:form id="formDisciplina">
+                    <p:panel>
+                        <p:messages/>
+                        <p:growl/>
+                        <h2>Cadastro Diciplina</h2>
+                        <h:panelGrid columns="2" cellpadding="10">
+                            <h:outputText value="Descrição"/>
+                            <p:inputText value="#{disciplinaBean.disciplina.descricao}" size="40"/>
+                            <p:commandButton actionListener="#{disciplinaBean.salvar(event)}" value="Salvar" update=":formDisciplina"/>
+                        </h:panelGrid>
+                        <br/>
+                        <p:dataTable value="#{disciplinaRN.listar()}" 
+                                     var="disciplina" >
+                            <p:column headerText="Codigo">
+                                #{disciplina.iddisciplina}
+                            </p:column>
+                            <p:column headerText="Descrição">
+                                #{disciplina.descricao}
+                            </p:column>
+                            <p:column headerText="Alterar" >
+                                <p:commandLink value="alterar" oncomplete="dialogDiscAlt.show()" update=":formDisciplinaAlt">
+                                    <f:setPropertyActionListener target="#{disciplinaBean.disciplina}" value="#{disciplina}"/>
+                                </p:commandLink>
+                            </p:column>
+                        </p:dataTable>
+                    </p:panel>
+                    
+                </h:form>
+                <h:form id="formDisciplinaAlt">
+                    <p:dialog id="dialogAlt" widgetVar="dialogDiscAlt">
+                        <p:panel id="panel">
+                            <p:messages/>
+                            <h:outputText value="Código"/>
+                            <h:outputText value="#{disciplinaBean.disciplina.iddisciplina}"/>
+                            <p:inputText value="#{disciplinaBean.disciplina.descricao}"/>
+                            <p:commandButton value="alterar" actionListener="#{disciplinaBean.alterar(event)}" update=":formDisciplina" oncomplete="dialogDiscAlt.hide()"/>
+                        </p:panel>
+                    </p:dialog>
+                </h:form>
+
+            </ui:define>
+
+        </ui:composition>
+</html>

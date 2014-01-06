@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:sec="http://www.springframework.org/security/facelets/tags">
+
+    <body>
+
+        <ui:composition template="/home/index.xhtml">
+            <ui:define name="principal-interna">
+                <sec:ifAnyGranted roles="ROLE_PROFESSOR,ROLE_ADMINISTRAÇÃO">
+                    <h:form id="cadTurma">
+                        <p:panel header="Cadastrar Turma">
+                            <h:messages/>
+                            <h:panelGrid>
+                                <h:outputText value="Nome:"/>
+                                <p:inputText value="#{turmaBean.turma.descricao}" required="true" requiredMessage="nome e obrigatorio"/>
+                                <h:outputText value="Periodo:"/>
+                                <p:inputText value="#{turmaBean.turma.periodo}" required="true" requiredMessage="periodo e obrigatorio"/>
+                                <p:commandButton value="salvar" actionListener="#{turmaBean.salvar(event)}" update=":cadTurma,:formListaTurmas"/>
+                            </h:panelGrid>
+                        </p:panel>
+                    </h:form>
+                </sec:ifAnyGranted>
+
+                <h:form id="formListaTurmas">
+                    <p:panel>
+                        <h2>Formação das turmas</h2>
+                        <br/>
+                        <br/>
+                        <p:dataTable emptyMessage="Não há alunos" value="#{turmaRN.listar()}"
+                                     var="turmas"
+                                     scrollHeight="500"
+                                     scrollable="true"
+                                     >
+                            <p:column headerText="Nome">
+                                #{turmas.descricao}
+                            </p:column>
+                            <p:column headerText="periodo">
+                                #{turmas.periodo}
+                            </p:column>
+                            <p:column headerText="Diciplinas">
+                                <p:dataList value="#{turmaDisciplinasRN.listarDisciplinas(turmas)}" var="dis" emptyMessage="nao hás disciplinas">
+                                    #{dis.iddisciplina.descricao}
+                                </p:dataList>
+                            </p:column>
+
+                            <p:column headerText="add disciplina">
+                                <p:commandButton value="ADD"  oncomplete="dialogAddDisciplina.show()" update=":formAddDisciplina">
+                                    <f:setPropertyActionListener target="#{turmaDisciplinasBean.turmaDisciplinas.idturma}" value="#{turmas}"/>
+                                </p:commandButton>
+                            </p:column>
+
+
+                        </p:dataTable>
+                    </p:panel>
+                </h:form>
+                <h:form id="formAddDisciplina">
+                    <p:dialog widgetVar="dialogAddDisciplina">
+                        <p:panel>
+                            <h:panelGrid columns="2" cellpadding="8">
+                            <h:outputText value="#{turmaDisciplinasBean.turmaDisciplinas.idturma.descricao} -- Periodo :#{turmaDisciplinasBean.turmaDisciplinas.idturma.periodo}"/>
+                            <p:selectOneMenu converter="disciplinaConverter" value="#{turmaDisciplinasBean.turmaDisciplinas.iddisciplina}">
+                                <f:selectItems value="#{disciplinaRN.listar()}"
+                                               var="disciplina"
+                                               itemLabel="#{disciplina.descricao}"
+                                               itemValue="#{disciplina}"/>
+                            </p:selectOneMenu>
+                            </h:panelGrid>
+
+                            <p:commandButton actionListener="#{turmaDisciplinasBean.salvar(event)}" value="salvar" update=":formListaTurmas" oncomplete="dialogAddDisciplina.hide()"/>
+                        </p:panel>
+                    </p:dialog>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

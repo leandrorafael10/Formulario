@@ -1,0 +1,34 @@
+
+body {
+    font-size: 13px;
+    font-family: Verdana, "Verdana CE",  Arial, "Arial CE", "Lucida Grande CE", lucida, "Helvetica CE", sans-serif;
+    margin: 0px;
+    padding: 0px;
+}
+
+h1 {
+    font-family: Arial, "Arial CE", "Lucida Grande CE", lucida, "Helvetica CE", sans-serif;
+    border-bottom: 1px solid #AFAFAF; 
+    font-size:  13px;
+    font-weight: bold;
+    margin: 0px;
+    padding: 0px;
+    color: #D20005;
+}
+.img{
+    height: 250px;
+    width: 250px;
+}
+
+a:link, a:visited {
+    font-size: 14px;
+    font-weight : bold;
+    text-decoration: none;
+}
+
+a:link:hover, a:visited:hover  {
+    
+    font-weight : bold;
+    text-decoration : underline;
+    color: navy;
+}

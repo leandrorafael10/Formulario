@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <body>
+
+        <ui:composition template="/home/index.xhtml">
+
+            <ui:define name="principal-interna">
+                <h:form>
+                    <p:panel>
+                        <h2>Cadastro Avaliação</h2>
+                        <h:panelGrid columns="2" cellpadding="10">
+                            <h:outputText value="aluno:"/>
+                            <p:selectOneMenu converter="usuarioConverter" filter="true" value="#{usuarioDisciplinaBean.usuarioDisciplina.idusuario}">
+                                <f:selectItem itemLabel=""/>
+                                <f:selectItems value="#{usuarioRN.listarPorPerfil(perfilRN.carregar(1))}"
+                                               var="usuario"
+                                               itemLabel="#{usuario.idpessoa.nome}"
+                                               itemValue="#{usuario}"/>
+                                <p:ajax update=":formListDisciplinas"/>
+                            </p:selectOneMenu>
+                        </h:panelGrid>
+                    </p:panel>
+                </h:form>
+                <h:form id="formListDisciplinas">
+                    <p:panel header="#{usuarioDisciplinaBean.usuarioDisciplina.idusuario.idpessoa.nome}">
+                        <p:dataTable value="#{usuarioDisciplinaRN.buscarPorUsuario(usuarioDisciplinaBean.usuarioDisciplina)}" var="disc">
+                            <p:column headerText="disciplina">
+                                #{disc.disciplina.descricao}
+                            </p:column>
+                            <p:column headerText="Nota">
+                                <h:outputText value="#{disc.nota}">
+                                </h:outputText>
+                            </p:column>
+                            <p:column headerText="Add Nota">
+                                <p:commandButton value="ADD Nota" oncomplete="dialogAddNota.show()" update=":formAddNota">
+                                    <f:setPropertyActionListener target="#{usuarioDisciplinaBean.usuarioDisciplina}" value="#{disc}"/>
+                                </p:commandButton>
+                            </p:column>
+                        </p:dataTable>
+                    </p:panel>
+                </h:form>
+                <h:form id="formAddNota">
+                    <p:dialog widgetVar="dialogAddNota" header="#{usuarioDisciplinaBean.usuarioDisciplina.idusuario.idpessoa.nome}">
+                        <p:panel >
+                            <h:outputText value="Nota:"/>
+                            <p:inputText value="#{usuarioDisciplinaBean.usuarioDisciplina.nota}"/>
+                            <p:commandButton value="salvar" actionListener="#{usuarioDisciplinaBean.atualizar(event)}"  update=":formListDisciplinas" oncomplete="dialogAddNota.hide()"/>
+                        </p:panel>
+                    </p:dialog>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
